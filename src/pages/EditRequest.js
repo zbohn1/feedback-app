@@ -10,6 +10,7 @@ export default function EditRequest(props) {
   const title = location.state.title;
   const id = location.state.id;
   const description = location.state.description;
+  const prevPage = location.state.prevPage;
 
   //create state for the custom selects
   const [selectValue2, setSelectValue2] = React.useState("Feature");
@@ -29,7 +30,6 @@ export default function EditRequest(props) {
 
   //adding the state variable for suggestions and roadmap from the global context;
   const { myRequests, setMyRequests } = React.useContext(Context);
-
   function handleChange(event) {
     //   use object destructuring to get the name and value for the event, then feed it into the set function to update the state. the brackets around name are so the computer doesn't think it's a string.
     const { name, value } = event.target;
@@ -97,7 +97,7 @@ export default function EditRequest(props) {
       return [...temp];
     });
     // passes state and navigates after form submits, rather than propogating form event through a link, which cancels it
-    navigate("/deepDive", { state: { title: edit.title } });
+    navigate("/deepDive", { state: { title: edit.title, prevPage: prevPage } });
   }
 
   function deleteRequest() {
@@ -148,7 +148,10 @@ export default function EditRequest(props) {
             height: "25px",
             position: "relative",
           }}
-          state={{ title: edit["title"] != "" ? edit["title"] : title }}
+          state={{
+            title: edit["title"] != "" ? edit["title"] : title,
+            prevPage: prevPage,
+          }}
         >
           <img
             className="back-arrow"
@@ -246,7 +249,7 @@ export default function EditRequest(props) {
                 </button>
               )}
 
-              <Link to="/deepDive" state={{ title: title }}>
+              <Link to="/deepDive" state={{ title: title, prevPage: prevPage }}>
                 <button className="btn-quad-with-media">Cancel</button>
               </Link>
 

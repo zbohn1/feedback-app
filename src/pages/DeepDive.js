@@ -19,7 +19,6 @@ export default function DeepDive() {
 
   //grab state from context
   const { myRequests, setMyRequests } = React.useContext(Context);
-
   //create state for when the screen size is narrow
   const [isNarrowScreen, setIsNarrowScreen] = React.useState(false);
 
@@ -165,21 +164,29 @@ export default function DeepDive() {
     let filteredIndex = myRequests.findIndex(findFiltered);
     setMyRequests((prev) => {
       let temp = prev;
+      console.log(temp);
 
-      //splice into the last comment
-
-      temp[filteredIndex].comments.splice(
-        temp[filteredIndex].comments.length,
-        0,
-        {
-          content: inputValue,
-          user: {
-            name: "Anne Valentine",
-            username: "annev1990e",
+      //splice into the last comments
+      if (temp[filteredIndex].comments) {
+        temp[filteredIndex].comments.splice(
+          temp[filteredIndex].comments.length,
+          0,
+          {
+            content: inputValue,
+            user: {
+              name: "Anne Valentine",
+              username: "annev1990e",
+            },
+          }
+        );
+      } else {
+        temp[filteredIndex]["comments"] = [
+          {
+            content: inputValue,
+            user: { name: "Anne Valentine", username: "annev1990e" },
           },
-        }
-      );
-
+        ];
+      }
       return [...temp];
     });
   }
@@ -205,7 +212,12 @@ export default function DeepDive() {
         </Link>
         <Link
           to="/editRequest"
-          state={{ title: title, id: id, description: description }}
+          state={{
+            title: title,
+            id: id,
+            description: description,
+            prevPage: prevPage,
+          }}
         >
           <button className="btn-primary">Edit Feedback</button>
         </Link>

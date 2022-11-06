@@ -82,7 +82,11 @@ function App() {
         {/* if there are comments, return suggestions including the comments 
       prop, otherwise return suggestions without comment prop */}
         {myRequests
-          .filter((request) => request["status"] == "suggestion")
+          .filter(
+            (request) =>
+              request["status"] == "suggestion" ||
+              request["status"] == "Suggestion"
+          )
           .map((request, index) => {
             {
               return (

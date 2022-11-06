@@ -38,7 +38,7 @@ export default function Suggestion(props) {
   //reset sorting of suggestions when link is clicked so that when you return to the home page they are again sorted as default
   function resetSort() {
     setMyRequests(() => {
-      let temp = sortSuggestions(myProductRequests, "Most Upvotes", "All");
+      let temp = sortSuggestions(myRequests, "Most Upvotes", "All");
       return [...temp];
     });
   }
